@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A79F0CDC1A4C3332000C15DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */; };
+		A79F0CE11A4C3332000C15DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CDF1A4C3332000C15DD /* Main.storyboard */; };
+		A79F0CE31A4C3332000C15DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CE21A4C3332000C15DD /* Images.xcassets */; };
+		A79F0CE61A4C3332000C15DD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CE41A4C3332000C15DD /* LaunchScreen.xib */; };
+		A79F0CF21A4C3332000C15DD /* ChromaProjectAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CF11A4C3332000C15DD /* ChromaProjectAppTests.swift */; };
+		A79F0CFC1A4C4708000C15DD /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CFB1A4C4708000C15DD /* ContainerController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A79F0CEC1A4C3332000C15DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A79F0CCE1A4C3332000C15DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A79F0CD51A4C3332000C15DD;
+			remoteInfo = ChromaProjectApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A79F0CD61A4C3332000C15DD /* ChromaProjectApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChromaProjectApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79F0CDA1A4C3332000C15DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A79F0CE01A4C3332000C15DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A79F0CE21A4C3332000C15DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A79F0CE51A4C3332000C15DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		A79F0CEB1A4C3332000C15DD /* ChromaProjectAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChromaProjectAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79F0CF01A4C3332000C15DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A79F0CF11A4C3332000C15DD /* ChromaProjectAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaProjectAppTests.swift; sourceTree = "<group>"; };
+		A79F0CFB1A4C4708000C15DD /* ContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A79F0CD31A4C3332000C15DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F0CE81A4C3332000C15DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A79F0CCD1A4C3332000C15DD = {
+			isa = PBXGroup;
+			children = (
+				A79F0CD81A4C3332000C15DD /* ChromaProjectApp */,
+				A79F0CEE1A4C3332000C15DD /* ChromaProjectAppTests */,
+				A79F0CD71A4C3332000C15DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A79F0CD71A4C3332000C15DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A79F0CD61A4C3332000C15DD /* ChromaProjectApp.app */,
+				A79F0CEB1A4C3332000C15DD /* ChromaProjectAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A79F0CD81A4C3332000C15DD /* ChromaProjectApp */ = {
+			isa = PBXGroup;
+			children = (
+				A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */,
+				A79F0CDF1A4C3332000C15DD /* Main.storyboard */,
+				A79F0CE21A4C3332000C15DD /* Images.xcassets */,
+				A79F0CE41A4C3332000C15DD /* LaunchScreen.xib */,
+				A79F0CD91A4C3332000C15DD /* Supporting Files */,
+				A79F0CFB1A4C4708000C15DD /* ContainerController.swift */,
+			);
+			path = ChromaProjectApp;
+			sourceTree = "<group>";
+		};
+		A79F0CD91A4C3332000C15DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A79F0CDA1A4C3332000C15DD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A79F0CEE1A4C3332000C15DD /* ChromaProjectAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				A79F0CF11A4C3332000C15DD /* ChromaProjectAppTests.swift */,
+				A79F0CEF1A4C3332000C15DD /* Supporting Files */,
+			);
+			path = ChromaProjectAppTests;
+			sourceTree = "<group>";
+		};
+		A79F0CEF1A4C3332000C15DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A79F0CF01A4C3332000C15DD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A79F0CD51A4C3332000C15DD /* ChromaProjectApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79F0CF51A4C3332000C15DD /* Build configuration list for PBXNativeTarget "ChromaProjectApp" */;
+			buildPhases = (
+				A79F0CD21A4C3332000C15DD /* Sources */,
+				A79F0CD31A4C3332000C15DD /* Frameworks */,
+				A79F0CD41A4C3332000C15DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChromaProjectApp;
+			productName = ChromaProjectApp;
+			productReference = A79F0CD61A4C3332000C15DD /* ChromaProjectApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A79F0CEA1A4C3332000C15DD /* ChromaProjectAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79F0CF81A4C3332000C15DD /* Build configuration list for PBXNativeTarget "ChromaProjectAppTests" */;
+			buildPhases = (
+				A79F0CE71A4C3332000C15DD /* Sources */,
+				A79F0CE81A4C3332000C15DD /* Frameworks */,
+				A79F0CE91A4C3332000C15DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A79F0CED1A4C3332000C15DD /* PBXTargetDependency */,
+			);
+			name = ChromaProjectAppTests;
+			productName = ChromaProjectAppTests;
+			productReference = A79F0CEB1A4C3332000C15DD /* ChromaProjectAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A79F0CCE1A4C3332000C15DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = ByBDesigns;
+				TargetAttributes = {
+					A79F0CD51A4C3332000C15DD = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					A79F0CEA1A4C3332000C15DD = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = A79F0CD51A4C3332000C15DD;
+					};
+				};
+			};
+			buildConfigurationList = A79F0CD11A4C3332000C15DD /* Build configuration list for PBXProject "ChromaProjectApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A79F0CCD1A4C3332000C15DD;
+			productRefGroup = A79F0CD71A4C3332000C15DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A79F0CD51A4C3332000C15DD /* ChromaProjectApp */,
+				A79F0CEA1A4C3332000C15DD /* ChromaProjectAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A79F0CD41A4C3332000C15DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79F0CE11A4C3332000C15DD /* Main.storyboard in Resources */,
+				A79F0CE61A4C3332000C15DD /* LaunchScreen.xib in Resources */,
+				A79F0CE31A4C3332000C15DD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F0CE91A4C3332000C15DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A79F0CD21A4C3332000C15DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79F0CDC1A4C3332000C15DD /* AppDelegate.swift in Sources */,
+				A79F0CFC1A4C4708000C15DD /* ContainerController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F0CE71A4C3332000C15DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79F0CF21A4C3332000C15DD /* ChromaProjectAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A79F0CED1A4C3332000C15DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A79F0CD51A4C3332000C15DD /* ChromaProjectApp */;
+			targetProxy = A79F0CEC1A4C3332000C15DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A79F0CDF1A4C3332000C15DD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A79F0CE01A4C3332000C15DD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A79F0CE41A4C3332000C15DD /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A79F0CE51A4C3332000C15DD /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A79F0CF31A4C3332000C15DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A79F0CF41A4C3332000C15DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A79F0CF61A4C3332000C15DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ChromaProjectApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A79F0CF71A4C3332000C15DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ChromaProjectApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		A79F0CF91A4C3332000C15DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ChromaProjectAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChromaProjectApp.app/ChromaProjectApp";
+			};
+			name = Debug;
+		};
+		A79F0CFA1A4C3332000C15DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ChromaProjectAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChromaProjectApp.app/ChromaProjectApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A79F0CD11A4C3332000C15DD /* Build configuration list for PBXProject "ChromaProjectApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79F0CF31A4C3332000C15DD /* Debug */,
+				A79F0CF41A4C3332000C15DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79F0CF51A4C3332000C15DD /* Build configuration list for PBXNativeTarget "ChromaProjectApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79F0CF61A4C3332000C15DD /* Debug */,
+				A79F0CF71A4C3332000C15DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A79F0CF81A4C3332000C15DD /* Build configuration list for PBXNativeTarget "ChromaProjectAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79F0CF91A4C3332000C15DD /* Debug */,
+				A79F0CFA1A4C3332000C15DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A79F0CCE1A4C3332000C15DD /* Project object */;
+}
