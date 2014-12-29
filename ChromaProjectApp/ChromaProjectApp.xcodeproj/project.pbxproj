@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A795A0D01A4F7551009339CC /* ChromaDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = A795A0CF1A4F7551009339CC /* ChromaDocument.swift */; };
+		A795A0D21A4F7915009339CC /* DocumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A795A0D11A4F7915009339CC /* DocumentModel.swift */; };
+		A79811CA1A4C707B0028A281 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79811C91A4C707B0028A281 /* NSUserDefaults.swift */; };
+		A79811CC1A4C894A0028A281 /* AppInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79811CB1A4C894A0028A281 /* AppInitializer.swift */; };
+		A79811CE1A4C91140028A281 /* NSFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79811CD1A4C91140028A281 /* NSFileManager.swift */; };
 		A79F0CDC1A4C3332000C15DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */; };
 		A79F0CE11A4C3332000C15DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CDF1A4C3332000C15DD /* Main.storyboard */; };
 		A79F0CE31A4C3332000C15DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CE21A4C3332000C15DD /* Images.xcassets */; };
 		A79F0CE61A4C3332000C15DD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A79F0CE41A4C3332000C15DD /* LaunchScreen.xib */; };
 		A79F0CF21A4C3332000C15DD /* ChromaProjectAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CF11A4C3332000C15DD /* ChromaProjectAppTests.swift */; };
 		A79F0CFC1A4C4708000C15DD /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F0CFB1A4C4708000C15DD /* ContainerController.swift */; };
+		A7B30BE21A4DCF5F001F0C69 /* iCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE11A4DCF5F001F0C69 /* iCloudManager.swift */; };
+		A7B30BE41A4DEC2C001F0C69 /* DocumentSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE31A4DEC2C001F0C69 /* DocumentSelectionController.swift */; };
+		A7B30BE61A4DEC54001F0C69 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +34,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A795A0CF1A4F7551009339CC /* ChromaDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaDocument.swift; sourceTree = "<group>"; };
+		A795A0D11A4F7915009339CC /* DocumentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentModel.swift; sourceTree = "<group>"; };
+		A79811C91A4C707B0028A281 /* NSUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
+		A79811CB1A4C894A0028A281 /* AppInitializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInitializer.swift; sourceTree = "<group>"; };
+		A79811CD1A4C91140028A281 /* NSFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSFileManager.swift; sourceTree = "<group>"; };
 		A79F0CD61A4C3332000C15DD /* ChromaProjectApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChromaProjectApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79F0CDA1A4C3332000C15DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +49,9 @@
 		A79F0CF01A4C3332000C15DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A79F0CF11A4C3332000C15DD /* ChromaProjectAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaProjectAppTests.swift; sourceTree = "<group>"; };
 		A79F0CFB1A4C4708000C15DD /* ContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
+		A7B30BE11A4DCF5F001F0C69 /* iCloudManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudManager.swift; sourceTree = "<group>"; };
+		A7B30BE31A4DEC2C001F0C69 /* DocumentSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSelectionController.swift; sourceTree = "<group>"; };
+		A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +99,14 @@
 				A79F0CE41A4C3332000C15DD /* LaunchScreen.xib */,
 				A79F0CD91A4C3332000C15DD /* Supporting Files */,
 				A79F0CFB1A4C4708000C15DD /* ContainerController.swift */,
+				A79811C91A4C707B0028A281 /* NSUserDefaults.swift */,
+				A79811CB1A4C894A0028A281 /* AppInitializer.swift */,
+				A79811CD1A4C91140028A281 /* NSFileManager.swift */,
+				A7B30BE11A4DCF5F001F0C69 /* iCloudManager.swift */,
+				A7B30BE31A4DEC2C001F0C69 /* DocumentSelectionController.swift */,
+				A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */,
+				A795A0CF1A4F7551009339CC /* ChromaDocument.swift */,
+				A795A0D11A4F7915009339CC /* DocumentModel.swift */,
 			);
 			path = ChromaProjectApp;
 			sourceTree = "<group>";
@@ -212,8 +236,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A795A0D01A4F7551009339CC /* ChromaDocument.swift in Sources */,
+				A7B30BE61A4DEC54001F0C69 /* SettingsController.swift in Sources */,
+				A795A0D21A4F7915009339CC /* DocumentModel.swift in Sources */,
+				A79811CC1A4C894A0028A281 /* AppInitializer.swift in Sources */,
+				A7B30BE21A4DCF5F001F0C69 /* iCloudManager.swift in Sources */,
+				A7B30BE41A4DEC2C001F0C69 /* DocumentSelectionController.swift in Sources */,
 				A79F0CDC1A4C3332000C15DD /* AppDelegate.swift in Sources */,
 				A79F0CFC1A4C4708000C15DD /* ContainerController.swift in Sources */,
+				A79811CA1A4C707B0028A281 /* NSUserDefaults.swift in Sources */,
+				A79811CE1A4C91140028A281 /* NSFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +439,7 @@
 				A79F0CF71A4C3332000C15DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A79F0CF81A4C3332000C15DD /* Build configuration list for PBXNativeTarget "ChromaProjectAppTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +448,7 @@
 				A79F0CFA1A4C3332000C15DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
