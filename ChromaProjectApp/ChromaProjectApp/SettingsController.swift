@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias SettingsChangeHandler = (SaveSettings) -> Void
+
 class SettingsController: UITableViewController {
 
 	@IBOutlet var localCell: UITableViewCell!
@@ -15,7 +17,7 @@ class SettingsController: UITableViewController {
 	@IBOutlet var localButton: UIButton!
 	@IBOutlet var iCloudButton: UIButton!
 	
-	var settingsChange: ((SaveSettings) -> ())? = nil
+	var settingsChange: SettingsChangeHandler? = nil
 	
 	func changeSettings(saveSettings: SaveSettings)
 	{

@@ -45,7 +45,7 @@ class ContainerController: UIViewController {
 				case (nil, .Some):
 					let unwrappedUbiquityToken = ubiquityToken! as protocol<NSCoding, NSCopying, NSObjectProtocol>
 					NSUserDefaults.setUbiquityToken(unwrappedUbiquityToken)
-					self.documentSelectionController?.reloadDocuments()
+					self.documentSelectionController?.reloadDocuments(saveSettings)
 					
 				case (.Some, nil):
 					NSUserDefaults.setUbiquityToken(nil)
@@ -99,11 +99,13 @@ class ContainerController: UIViewController {
 		
 		switch(segue.identifier!)
 		{
-		case "documentEmbedSegue":
+		case Segue.DocumentEmbedSegue.rawValue:
 			self.documentSelectionController = segue.destinationViewController as? DocumentSelectionController
+			self.setupControllers(self.settingsController, selectionController: self.documentSelectionController)
 			
-		case "settingsEmbedSegue":
+		case Segue.SettingsEmbedSegue.rawValue:
 			self.settingsController = segue.destinationViewController as? SettingsController
+			self.setupControllers(self.settingsController, selectionController: self.documentSelectionController)
 			
 		default:
 			break
@@ -120,5 +122,23 @@ extension ContainerController
 	
 	@IBAction func addDocumentButtonClicked(sender: UIBarButtonItem) {
 		self.documentSelectionController?.addNewDocument()
+	}
+}
+
+private extension ContainerController
+{
+	func setupControllers(settingsController: SettingsController?, selectionController: DocumentSelectionController?)
+	{
+		if let settingsController = settingsController
+		{
+			if let selectionController = selectionController
+			{
+				settingsController.settingsChange = {
+					settings in
+					
+					selectionController.reloadDocuments(settings)
+				}
+			}
+		}
 	}
 }

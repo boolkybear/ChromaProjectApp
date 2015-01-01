@@ -10,9 +10,19 @@ import UIKit
 
 class DocumentSelectionController: UICollectionViewController {
 	
-	func reloadDocuments()
+	func reloadDocuments(saveSettings: SaveSettings)
 	{
-		// TOOD: reload documents
+		switch(saveSettings)
+		{
+		case .SaveLocally:
+			break
+			
+		case .SaveInCloud:
+			break
+			
+		default:
+			break
+		}
 	}
 	
 	func addNewDocument()
