@@ -84,6 +84,15 @@ class ContainerController: UIViewController {
 			}
 		}
     }
+	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		
+//		let frameString = NSStringFromCGRect(self.view.frame)
+//		let settingsFrameString = NSStringFromCGRect(self.settingsContainer.frame)
+//		
+//		println("Frame: \(frameString) - \(settingsFrameString)")
+//	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,6 +114,8 @@ class ContainerController: UIViewController {
 			
 		case Segue.SettingsEmbedSegue.rawValue:
 			self.settingsController = segue.destinationViewController as? SettingsController
+			let iCloudToken = NSFileManager.defaultManager().ubiquityIdentityToken
+			self.settingsController?.enableiCloud(iCloudToken != nil)
 			self.setupControllers(self.settingsController, selectionController: self.documentSelectionController)
 			
 		default:

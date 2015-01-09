@@ -18,6 +18,7 @@ class SettingsController: UITableViewController {
 	@IBOutlet var iCloudButton: UIButton!
 	
 	var settingsChange: SettingsChangeHandler? = nil
+	var isiCloudEnabled: Bool = false
 	
 	func changeSettings(saveSettings: SaveSettings)
 	{
@@ -31,7 +32,24 @@ class SettingsController: UITableViewController {
 	
 	func enableiCloud(enabled: Bool)
 	{
-		self.iCloudButton.enabled = enabled
+		self.isiCloudEnabled = enabled
+		if let button = self.iCloudButton
+		{
+			button.enabled = enabled
+		}
+	}
+	
+//	override func viewDidAppear(animated: Bool) {
+//		super.viewDidAppear(animated)
+//		
+//		let frameString = NSStringFromCGRect(self.tableView.frame)
+//		println("Frame: \(frameString)")
+//	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		self.iCloudButton.enabled = self.isiCloudEnabled
 	}
 }
 
