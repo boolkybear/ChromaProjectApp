@@ -132,7 +132,12 @@ extension ContainerController
 	}
 	
 	@IBAction func addDocumentButtonClicked(sender: UIBarButtonItem) {
-		self.documentSelectionController?.addNewDocument()
+		let document = self.documentSelectionController?.addNewDocument(NSUserDefaults.saveSettings())
+		
+		if let createdDocument = document
+		{
+			// TODO: push document for edition
+		}
 	}
 }
 

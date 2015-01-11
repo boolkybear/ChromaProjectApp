@@ -22,6 +22,7 @@ class SettingsController: UITableViewController {
 	
 	func changeSettings(saveSettings: SaveSettings)
 	{
+		self.refreshCellMarksWithSettings(saveSettings)
 		NSUserDefaults.setSaveSettings(saveSettings)
 		
 		if let change = self.settingsChange
@@ -50,6 +51,7 @@ class SettingsController: UITableViewController {
 		super.viewDidLoad()
 		
 		self.iCloudButton.enabled = self.isiCloudEnabled
+		self.refreshCellMarksWithSettings(NSUserDefaults.saveSettings())
 	}
 }
 
@@ -62,5 +64,15 @@ extension SettingsController
 	
 	@IBAction func iCloudButtonClicked(sender: AnyObject) {
 		self.changeSettings(.SaveInCloud)
+	}
+}
+
+// Helpers
+extension SettingsController
+{
+	func refreshCellMarksWithSettings(saveSettings: SaveSettings)
+	{
+		self.localCell.accessoryType = saveSettings == SaveSettings.SaveLocally ? .Checkmark : .None
+		self.iCloudCell.accessoryType = saveSettings == SaveSettings.SaveInCloud ? .Checkmark : .None
 	}
 }

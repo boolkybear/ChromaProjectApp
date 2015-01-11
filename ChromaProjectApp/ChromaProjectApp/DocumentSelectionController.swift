@@ -31,10 +31,59 @@ class DocumentSelectionController: UICollectionViewController {
 		}
 	}
 	
-	func addNewDocument()
+	func addNewDocument(saveSettings: SaveSettings) -> ChromaDocument?
 	{
 		// TODO: add to model
+		
+		var createdDocument: ChromaDocument? = nil
+		
+		switch(saveSettings)
+		{
+		case .SaveLocally:
+			let documentsPath = self.localDocumentsPath()
+			
+			let uuid = NSUUID().UUIDString
+			
+			let documentPath = "\(documentsPath)/\(uuid).chromadocument"
+			if let documentUrl = NSURL.fileURLWithPath(documentPath)
+			{
+				let document = ChromaDocument(fileURL: documentUrl)
+				document.saveToURL(documentUrl, forSaveOperation: UIDocumentSaveOperation.ForCreating) {
+					success in
+					
+					if success
+					{
+						self.documents?.append(document)
+						
+						self.collectionView?.reloadData()
+						
+						createdDocument = document
+					}
+				}
+			}
+			
+		case .SaveInCloud:
+			// TODO: save to iCloud
+			break
+			
+		default:	// Not configured
+			self.documents = nil
+			break
+		}
+		
+		return createdDocument
 	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		self.reloadDocuments(NSUserDefaults.saveSettings())
+	}
+}
+
+extension DocumentSelectionController: UICollectionViewDataSource, UICollectionViewDelegate
+{
+	
 }
 
 private extension DocumentSelectionController
