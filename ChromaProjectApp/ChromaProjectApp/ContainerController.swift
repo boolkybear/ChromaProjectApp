@@ -84,15 +84,6 @@ class ContainerController: UIViewController {
 			}
 		}
     }
-	
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		
-//		let frameString = NSStringFromCGRect(self.view.frame)
-//		let settingsFrameString = NSStringFromCGRect(self.settingsContainer.frame)
-//		
-//		println("Frame: \(frameString) - \(settingsFrameString)")
-//	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,14 +131,20 @@ private extension ContainerController
 {
 	func setupControllers(settingsController: SettingsController?, selectionController: DocumentSelectionController?)
 	{
-		if let settingsController = settingsController
-		{
-			if let selectionController = selectionController
-			{
-				settingsController.settingsChange = {
-					settings in
-					
-					selectionController.reloadDocuments(settings)
+		ifNotNil(selectionController, settingsController) {
+			selectionController, settingsController in
+			
+			settingsController.settingsChange = {
+				settings in
+				
+				selectionController.reloadDocuments(settings)
+				
+				UIView.animateWithDuration(0.3, animations: {
+					self.settingsContainer.alpha = 0.0 }) {
+						isFinished in
+						
+						self.settingsContainer.hidden = true
+						self.settingsContainer.alpha = 1.0
 				}
 			}
 		}

@@ -21,6 +21,13 @@
 		A7B30BE21A4DCF5F001F0C69 /* iCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE11A4DCF5F001F0C69 /* iCloudManager.swift */; };
 		A7B30BE41A4DEC2C001F0C69 /* DocumentSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE31A4DEC2C001F0C69 /* DocumentSelectionController.swift */; };
 		A7B30BE61A4DEC54001F0C69 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */; };
+		EF3F96C81A76510300A29DB0 /* Pyramid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F96C71A76510300A29DB0 /* Pyramid.swift */; };
+		EF3F96CA1A76566D00A29DB0 /* Local.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF3F96C91A76566D00A29DB0 /* Local.storyboard */; };
+		EF3F96CD1A7657A500A29DB0 /* DocumentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F96CC1A7657A500A29DB0 /* DocumentsController.swift */; };
+		EF3F96CF1A76586B00A29DB0 /* DocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F96CE1A76586B00A29DB0 /* DocumentManager.swift */; };
+		EF3F96D11A76677B00A29DB0 /* DocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F96D01A76677B00A29DB0 /* DocumentCell.swift */; };
+		EF3F96D31A76885F00A29DB0 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F96D21A76885F00A29DB0 /* EditController.swift */; };
+		EFA855D51A76902C00E820CC /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA855D41A76902C00E820CC /* DocumentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +59,13 @@
 		A7B30BE11A4DCF5F001F0C69 /* iCloudManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iCloudManager.swift; sourceTree = "<group>"; };
 		A7B30BE31A4DEC2C001F0C69 /* DocumentSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSelectionController.swift; sourceTree = "<group>"; };
 		A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		EF3F96C71A76510300A29DB0 /* Pyramid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pyramid.swift; sourceTree = "<group>"; };
+		EF3F96C91A76566D00A29DB0 /* Local.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Local.storyboard; path = "Supporting Files/Local.storyboard"; sourceTree = "<group>"; };
+		EF3F96CC1A7657A500A29DB0 /* DocumentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentsController.swift; path = Classes/DocumentsController.swift; sourceTree = "<group>"; };
+		EF3F96CE1A76586B00A29DB0 /* DocumentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentManager.swift; path = Classes/DocumentManager.swift; sourceTree = "<group>"; };
+		EF3F96D01A76677B00A29DB0 /* DocumentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentCell.swift; path = Classes/DocumentCell.swift; sourceTree = "<group>"; };
+		EF3F96D21A76885F00A29DB0 /* EditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditController.swift; path = Classes/EditController.swift; sourceTree = "<group>"; };
+		EFA855D41A76902C00E820CC /* DocumentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentViewModel.swift; path = Classes/DocumentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +107,7 @@
 		A79F0CD81A4C3332000C15DD /* ChromaProjectApp */ = {
 			isa = PBXGroup;
 			children = (
+				EF3F96CB1A76577500A29DB0 /* Classes */,
 				A79F0CDB1A4C3332000C15DD /* AppDelegate.swift */,
 				A79F0CDF1A4C3332000C15DD /* Main.storyboard */,
 				A79F0CE21A4C3332000C15DD /* Images.xcassets */,
@@ -107,6 +122,7 @@
 				A7B30BE51A4DEC54001F0C69 /* SettingsController.swift */,
 				A795A0CF1A4F7551009339CC /* ChromaDocument.swift */,
 				A795A0D11A4F7915009339CC /* DocumentModel.swift */,
+				EF3F96C71A76510300A29DB0 /* Pyramid.swift */,
 			);
 			path = ChromaProjectApp;
 			sourceTree = "<group>";
@@ -115,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				A79F0CDA1A4C3332000C15DD /* Info.plist */,
+				EF3F96C91A76566D00A29DB0 /* Local.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -134,6 +151,18 @@
 				A79F0CF01A4C3332000C15DD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF3F96CB1A76577500A29DB0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				EF3F96CC1A7657A500A29DB0 /* DocumentsController.swift */,
+				EF3F96CE1A76586B00A29DB0 /* DocumentManager.swift */,
+				EF3F96D01A76677B00A29DB0 /* DocumentCell.swift */,
+				EF3F96D21A76885F00A29DB0 /* EditController.swift */,
+				EFA855D41A76902C00E820CC /* DocumentViewModel.swift */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +247,7 @@
 			files = (
 				A79F0CE11A4C3332000C15DD /* Main.storyboard in Resources */,
 				A79F0CE61A4C3332000C15DD /* LaunchScreen.xib in Resources */,
+				EF3F96CA1A76566D00A29DB0 /* Local.storyboard in Resources */,
 				A79F0CE31A4C3332000C15DD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,9 +272,15 @@
 				A79811CC1A4C894A0028A281 /* AppInitializer.swift in Sources */,
 				A7B30BE21A4DCF5F001F0C69 /* iCloudManager.swift in Sources */,
 				A7B30BE41A4DEC2C001F0C69 /* DocumentSelectionController.swift in Sources */,
+				EF3F96D11A76677B00A29DB0 /* DocumentCell.swift in Sources */,
 				A79F0CDC1A4C3332000C15DD /* AppDelegate.swift in Sources */,
+				EF3F96C81A76510300A29DB0 /* Pyramid.swift in Sources */,
 				A79F0CFC1A4C4708000C15DD /* ContainerController.swift in Sources */,
+				EF3F96D31A76885F00A29DB0 /* EditController.swift in Sources */,
 				A79811CA1A4C707B0028A281 /* NSUserDefaults.swift in Sources */,
+				EF3F96CF1A76586B00A29DB0 /* DocumentManager.swift in Sources */,
+				EFA855D51A76902C00E820CC /* DocumentViewModel.swift in Sources */,
+				EF3F96CD1A7657A500A29DB0 /* DocumentsController.swift in Sources */,
 				A79811CE1A4C91140028A281 /* NSFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

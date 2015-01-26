@@ -12,6 +12,9 @@ private enum DocumentKey: String
 {
 	case OrderKey = "order"
 	case ThumbnailKey = "thumbnail"
+	case NameKey = "name"
+	case CaptionKey = "caption"
+	case BackgroundKey = "background"
 }
 
 private enum DocumentLayerKey: String
@@ -47,16 +50,51 @@ extension DocumentFileWrapper
 		return order
 	}
 	
-	func thumbnail() -> UIImage?
+	private func imageForKey(documentKey: DocumentKey) -> UIImage?
 	{
-		var thumbnail: UIImage? = nil
+		var image: UIImage? = nil
 		
-		if let thumbnailData = self.fileWrapperForKey(DocumentKey.ThumbnailKey.rawValue)?.regularFileContents
+		if let imageData = self.fileWrapperForKey(documentKey.rawValue)?.regularFileContents
 		{
-			thumbnail = UIImage(data: thumbnailData)
+			image = UIImage(data: imageData)
 		}
 		
-		return thumbnail
+		return image
+	}
+	
+	func thumbnail() -> UIImage?
+	{
+		return self.imageForKey(.ThumbnailKey)
+	}
+	
+	func background() -> UIImage?
+	{
+		return self.imageForKey(.BackgroundKey)
+	}
+	
+	private func stringForKey(documentKey: DocumentKey, encoding: UInt) -> String?
+	{
+		var string: String? = nil
+		
+		if let stringData = self.fileWrapperForKey(documentKey.rawValue)?.regularFileContents
+		{
+			if let str = NSString(data: stringData, encoding: encoding)
+			{
+				string = String(str)
+			}
+		}
+		
+		return string
+	}
+	
+	func name() -> String?
+	{
+		return self.stringForKey(.NameKey, encoding: NSUTF8StringEncoding)
+	}
+	
+	func caption() -> String?
+	{
+		return self.stringForKey(.CaptionKey, encoding: NSUTF8StringEncoding)
 	}
 	
 	func layerWrapper(identifier: String) -> DocumentLayerFileWrapper?
@@ -131,8 +169,9 @@ class ChromaDocument: UIDocument
 	private let imageKey = "image"
 	private let captionKey = "caption"
 	
-	private var layers: [ChromaDocumentLayer]
-	var thumbnail: UIImage?
+	private var layers: [ChromaDocumentLayer] = [ChromaDocumentLayer]()
+	var thumbnail: UIImage? = nil
+	var name: String? = nil
 	var fileWrapper: NSFileWrapper? = nil
 	
 	var count: Int { return self.layers.count }
@@ -143,24 +182,11 @@ class ChromaDocument: UIDocument
 		return layer
 	}
 	
-	override init()
-	{
-		self.layers = [ChromaDocumentLayer]()
-		self.thumbnail = nil
-		
-		super.init()
-	}
-	
-	override init(fileURL url: NSURL)
-	{
-		self.layers = [ChromaDocumentLayer]()
-		self.thumbnail = nil
-		
-		super.init(fileURL: url)
-	}
-	
 	override func loadFromContents(contents: AnyObject, ofType typeName: String, error outError: NSErrorPointer) -> Bool {
 		self.fileWrapper = contents as? DocumentFileWrapper
+		
+		self.thumbnail = self.fileWrapper?.thumbnail()
+		self.name = self.fileWrapper?.name()
 		
 		self.layers.removeAll()
 		if let orderArray = self.fileWrapper?.order()
@@ -235,5 +261,32 @@ class ChromaDocument: UIDocument
 				self.fileWrapper?.addFileWrapper(newOrderWrapper)
 			}
 		}
+	}
+	
+	class func validExtensions() -> [String]
+	{
+		var extensions = [String]()
+		if let infoDict = NSBundle.mainBundle().infoDictionary
+		{
+			if let types = infoDict["CFBundleDocumentTypes"] as? [AnyObject]
+			{
+				for typeDict in types
+				{
+					if let contentTypes = typeDict["LSItemContentTypes"] as? [AnyObject]
+					{
+						for contentType in contentTypes
+						{
+							let pathExtension = contentType.pathExtension
+							if contains(extensions, pathExtension) == false
+							{
+								extensions.append(pathExtension)
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return extensions
 	}
 }

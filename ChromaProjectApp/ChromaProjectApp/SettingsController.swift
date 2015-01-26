@@ -39,13 +39,6 @@ class SettingsController: UITableViewController {
 		}
 	}
 	
-//	override func viewDidAppear(animated: Bool) {
-//		super.viewDidAppear(animated)
-//		
-//		let frameString = NSStringFromCGRect(self.tableView.frame)
-//		println("Frame: \(frameString)")
-//	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
