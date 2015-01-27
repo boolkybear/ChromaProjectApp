@@ -34,6 +34,19 @@ extension NSFileWrapper
 	{
 		return self.fileWrappers[key] as? NSFileWrapper
 	}
+	
+	func removeFileWrapperForKey(key: String) -> Bool
+	{
+		var childExists = false
+		
+		if let childWrapper = self.fileWrapperForKey(key)
+		{
+			self.removeFileWrapper(childWrapper)
+			childExists = true
+		}
+		
+		return childExists
+	}
 }
 
 extension DocumentFileWrapper
@@ -101,6 +114,25 @@ extension DocumentFileWrapper
 	{
 		return self.fileWrapperForKey(identifier)
 	}
+	
+	private func setStringForKey(string: String?, documentKey: DocumentKey, encoding: UInt) -> String?
+	{
+		var dev: String? = nil
+		self.removeFileWrapperForKey(documentKey.rawValue)
+		
+		if let string = string
+		{
+			let stringWrapper = NSFileWrapper(regularFileWithContents: string.dataUsingEncoding(encoding, allowLossyConversion: false) ?? NSData())
+			dev = self.addFileWrapper(stringWrapper)
+		}
+		
+		return dev
+	}
+	
+	func setName(newName: String?) -> String?
+	{
+		return self.setStringForKey(newName, documentKey: .NameKey, encoding: NSUTF8StringEncoding)
+	}
 }
 
 extension DocumentLayerFileWrapper
@@ -165,13 +197,14 @@ class ChromaDocumentLayer
 
 class ChromaDocument: UIDocument
 {
-	private let orderKey = "order"
-	private let imageKey = "image"
-	private let captionKey = "caption"
+//	private let orderKey = "order"
+//	private let imageKey = "image"
+//	private let captionKey = "caption"
 	
 	private var layers: [ChromaDocumentLayer] = [ChromaDocumentLayer]()
 	var thumbnail: UIImage? = nil
 	var name: String? = nil
+	var background: UIImage? = nil
 	var fileWrapper: NSFileWrapper? = nil
 	
 	var count: Int { return self.layers.count }
@@ -187,6 +220,7 @@ class ChromaDocument: UIDocument
 		
 		self.thumbnail = self.fileWrapper?.thumbnail()
 		self.name = self.fileWrapper?.name()
+		self.background = self.fileWrapper?.background()
 		
 		self.layers.removeAll()
 		if let orderArray = self.fileWrapper?.order()
@@ -243,7 +277,7 @@ class ChromaDocument: UIDocument
 	
 	func recreateOrderWrapper()
 	{
-		let orderWrapper = self.fileWrapper?.fileWrapperForKey(self.orderKey)
+		let orderWrapper = self.fileWrapper?.fileWrapperForKey(DocumentKey.OrderKey.rawValue)
 		if let orderWrapper = orderWrapper
 		{
 			self.fileWrapper?.removeFileWrapper(orderWrapper)
@@ -257,7 +291,7 @@ class ChromaDocument: UIDocument
 			if let orderData = orderData
 			{
 				let newOrderWrapper = NSFileWrapper(regularFileWithContents: orderData)
-				newOrderWrapper.preferredFilename = self.orderKey
+				newOrderWrapper.preferredFilename = DocumentKey.OrderKey.rawValue
 				self.fileWrapper?.addFileWrapper(newOrderWrapper)
 			}
 		}
@@ -288,5 +322,10 @@ class ChromaDocument: UIDocument
 		}
 		
 		return extensions
+	}
+	
+	func setName(newName: String?)
+	{
+		self.fileWrapper?.setName(newName)
 	}
 }

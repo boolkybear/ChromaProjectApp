@@ -17,6 +17,11 @@ class DocumentsController: UITableViewController {
 		case Count
 	}
 	
+	private enum Segues: String
+	{
+		case EditControllerPush = "editPushSegue"
+	}
+	
 	var documentManager: DocumentManager? = nil
 	
 	required init(coder aDecoder: NSCoder) {
@@ -108,9 +113,12 @@ class DocumentsController: UITableViewController {
 		switch Sections(rawValue: indexPath.section)!
 		{
 		case .AddDocument:
+			self.performSegueWithIdentifier(Segues.EditControllerPush.rawValue, sender: nil)
 			break
 			
 		case .Document:
+			let document = self.documentManager?[indexPath.row]
+			self.performSegueWithIdentifier(Segues.EditControllerPush.rawValue, sender: document)
 			break
 			
 		case .Count:
@@ -151,16 +159,41 @@ class DocumentsController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+		
+		if let identifier = segue.identifier
+		{
+			if let segueIdentifier = Segues(rawValue: identifier)
+			{
+				switch segueIdentifier
+				{
+				case .EditControllerPush:
+					if let controller = segue.destinationViewController as? EditController
+					{
+						let document = sender as? ChromaDocument
+						var handler: CreationHandler? = nil
+						if let document = document
+						{
+							controller.setDocument(document, onCreate: nil)
+						}
+						else
+						{
+							controller.setDocument(nil) {
+								newDocument in
+								
+								let doc: ChromaDocument = newDocument
+								self.documentManager?.appendDocument(doc)
+							}
+						}
+					}
+				}
+			}
+		}
     }
-    */
-
 }
 
 private extension DocumentsController

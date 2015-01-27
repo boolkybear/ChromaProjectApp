@@ -35,14 +35,31 @@ struct DocumentViewModel
 		didSet {
 			visibleLayers.removeAll()
 			
-			// TODO: load data from document
+			document?.openWithCompletionHandler {
+				success in
+				
+				if success
+				{
+					if let document = self.document
+					{
+						self.visibleLayers.append(DocumentVisibleLayer(type: .Caption(document.name)))
+						
+						let count = document.count
+						for i in 0..<count
+						{
+							var visibleLayer = DocumentVisibleLayer(type: .Chroma(document[count-i-1]))
+							self.visibleLayers.append(visibleLayer)
+						}
+						
+						self.visibleLayers.append(DocumentVisibleLayer(type: .Background(document.background)))
+					}
+				}
+			}
 		}
 	}
 	
 	var name: String? {
 		get { return self.document?.name }
-		set {
-			// TODO: save newValue as document name
-		}
+		set { self.document?.setName(newValue) }
 	}
 }

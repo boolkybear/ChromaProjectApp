@@ -43,6 +43,13 @@ struct DocumentManager
 			//self.documents.removeAtIndex(index);
 		}
 	}
+	
+	mutating func appendDocument(document: ChromaDocument)
+	{
+		documents.append(document)
+		
+		documents = sortedDocuments(documents)
+	}
 }
 
 private extension DocumentManager
@@ -74,6 +81,11 @@ private extension DocumentManager
 			}
 		}
 		
+		return sortedDocuments(documents)
+	}
+	
+	func sortedDocuments(documents: [ChromaDocument]) -> [ChromaDocument]
+	{
 		return documents.sorted {
 			document1, document2 in
 			

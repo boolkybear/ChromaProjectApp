@@ -39,17 +39,12 @@ class DocumentSelectionController: UICollectionViewController {
 
 private extension DocumentSelectionController
 {
-	func localDocumentsPath() -> String
-	{
-		return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
-	}
-	
 	func localDocuments() -> [ChromaDocument]
 	{
 		var documents = [ChromaDocument]()
 		
 		var error: NSError? = nil
-		let localDocumentsPath = self.localDocumentsPath()
+		let localDocumentsPath = NSFileManager.localDocumentsPath()
 		let localDocuments = NSFileManager.defaultManager().contentsOfDirectoryAtPath(localDocumentsPath, error: &error);
 		
 		let validExtensions = self.validExtensions()

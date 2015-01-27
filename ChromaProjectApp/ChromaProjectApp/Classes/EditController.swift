@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias CreationHandler = ()->Void
+typealias CreationHandler = (ChromaDocument)->Void
 
 class EditController: UIViewController {
 
@@ -18,6 +18,8 @@ class EditController: UIViewController {
 	
 	var document: ChromaDocument?
 	var creationHandler: CreationHandler?
+	
+	var documentViewModel: DocumentViewModel?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,5 +51,58 @@ class EditController: UIViewController {
 		{
 			self.creationHandler = onCreate
 		}
+		
+		self.documentViewModel = DocumentViewModel()
+		self.documentViewModel?.document = self.document
+		
+		self.tableView?.reloadData()
+	}
+}
+
+extension EditController: UITextFieldDelegate
+{
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		
+		if let name = nameField?.text
+		{
+			if let document = self.document
+			{
+				document.setName(name)
+				
+				self.creationHandler?(document)
+			}
+			else
+			{
+				let localDocumentsPath = NSFileManager.localDocumentsPath()
+				let randomName = NSUUID().UUIDString
+				let filePath = "\(localDocumentsPath)/\(randomName)"
+				if let fileUrl = NSURL.fileURLWithPath(filePath)
+				{
+					let newDocument = ChromaDocument(fileURL: fileUrl)
+					newDocument.saveToURL(fileUrl, forSaveOperation: UIDocumentSaveOperation.ForCreating) {
+						success in
+						
+						if success
+						{
+							self.creationHandler?(newDocument)
+						}
+					}
+				}
+			}
+		}
+		
+		return true
+	}
+}
+
+extension EditController: UITableViewDataSource, UITableViewDelegate
+{
+	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		return 1
+	}
+	
+	func func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.documentViewModel?.co
 	}
 }
