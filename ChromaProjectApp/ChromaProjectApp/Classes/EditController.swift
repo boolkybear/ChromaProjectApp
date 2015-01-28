@@ -102,7 +102,39 @@ extension EditController: UITableViewDataSource, UITableViewDelegate
 		return 1
 	}
 	
-	func func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.documentViewModel?.co
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return self.documentViewModel?.count() ?? 0
+	}
+	
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell: UITableViewCell = {
+			let visibleLayer = self.documentViewModel?[indexPath.row]
+			if let layerType = visibleLayer?.type
+			{
+				let visibleCell: VisibilityCell? = {
+					switch layerType
+					{
+					case .Caption:
+						return tableView.dequeueReusableCellWithIdentifier("CaptionCell") as? VisibilityCaptionCell
+						
+					case .Chroma:
+						return tableView.dequeueReusableCellWithIdentifier("ChromaCell") as? VisibilityLayerCell
+					
+					case .Background:
+						return tableView.dequeueReusableCellWithIdentifier("BackgroundCell") as? VisibilityBackgroundCell
+					}
+				}()
+				
+				if let visibleCell = visibleCell
+				{
+					visibleCell.visibleLayer = visibleLayer
+					return visibleCell
+				}
+			}
+			
+			return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "DefaultCell")
+		}()
+		
+		return cell
 	}
 }

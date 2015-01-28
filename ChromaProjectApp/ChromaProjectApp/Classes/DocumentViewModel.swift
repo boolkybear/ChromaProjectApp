@@ -58,8 +58,22 @@ struct DocumentViewModel
 		}
 	}
 	
+	init()
+	{
+	}
+	
 	var name: String? {
 		get { return self.document?.name }
 		set { self.document?.setName(newValue) }
+	}
+	
+	func count() -> Int
+	{
+		return countElements(self.visibleLayers)
+	}
+	
+	subscript(index: Int) -> DocumentVisibleLayer
+	{
+		return self.visibleLayers[index]
 	}
 }
