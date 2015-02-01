@@ -23,7 +23,25 @@ class DocumentCell: UITableViewCell {
 			ifNotNil(self.document, self.preview, self.nameLabel, self.infoLabel) {
 				document, preview, nameLabel, infoLabel in
 				
-				// TODO: update cell ui
+				document.openWithCompletionHandler {
+					success in
+					
+					if success
+					{
+						// TODO: update cell ui
+						preview.image = document.thumbnail
+						nameLabel.text = document.name ?? document.localizedName
+						
+						if let fileDate = document.fileModificationDate
+						{
+							let dateFormatter = NSDateFormatter()
+							dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+							dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
+							
+							infoLabel.text = dateFormatter.stringFromDate(fileDate)
+						}
+					}
+				}
 			}
 		}
 	}

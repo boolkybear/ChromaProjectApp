@@ -56,6 +56,8 @@ private extension DocumentManager
 {
 	func documentsInPath(pathToLoad: String?) -> [ChromaDocument]
 	{
+		println("path to load: \(pathToLoad)")
+		
 		var documents = [ChromaDocument]()
 		
 		if let pathToLoad = pathToLoad

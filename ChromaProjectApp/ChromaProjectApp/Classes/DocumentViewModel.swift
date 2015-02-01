@@ -42,7 +42,7 @@ struct DocumentViewModel
 				{
 					if let document = self.document
 					{
-						self.visibleLayers.append(DocumentVisibleLayer(type: .Caption(document.name)))
+						self.visibleLayers.append(DocumentVisibleLayer(type: .Caption(document.caption)))
 						
 						let count = document.count
 						for i in 0..<count

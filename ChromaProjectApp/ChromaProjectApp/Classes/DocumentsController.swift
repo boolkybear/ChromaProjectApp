@@ -183,10 +183,14 @@ class DocumentsController: UITableViewController {
 						else
 						{
 							controller.setDocument(nil) {
+								[unowned self]
+								
 								newDocument in
 								
 								let doc: ChromaDocument = newDocument
 								self.documentManager?.appendDocument(doc)
+								
+								self.tableView?.reloadData()
 							}
 						}
 					}

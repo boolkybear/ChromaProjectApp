@@ -56,6 +56,7 @@ class EditController: UIViewController {
 		self.documentViewModel?.document = self.document
 		
 		self.tableView?.reloadData()
+		self.nameField?.text = self.documentViewModel?.name ?? ""
 	}
 }
 
@@ -76,7 +77,8 @@ extension EditController: UITextFieldDelegate
 			{
 				let localDocumentsPath = NSFileManager.localDocumentsPath()
 				let randomName = NSUUID().UUIDString
-				let filePath = "\(localDocumentsPath)/\(randomName)"
+				let pathExtension = ChromaDocument.validExtensions().first ?? "chroma"
+				let filePath = "\(localDocumentsPath)/\(randomName).\(pathExtension)"
 				if let fileUrl = NSURL.fileURLWithPath(filePath)
 				{
 					let newDocument = ChromaDocument(fileURL: fileUrl)
@@ -86,6 +88,7 @@ extension EditController: UITextFieldDelegate
 						if success
 						{
 							self.creationHandler?(newDocument)
+							newDocument.setName(name)
 						}
 					}
 				}

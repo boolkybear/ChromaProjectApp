@@ -123,6 +123,7 @@ extension DocumentFileWrapper
 		if let string = string
 		{
 			let stringWrapper = NSFileWrapper(regularFileWithContents: string.dataUsingEncoding(encoding, allowLossyConversion: false) ?? NSData())
+			stringWrapper.preferredFilename = documentKey.rawValue
 			dev = self.addFileWrapper(stringWrapper)
 		}
 		
@@ -132,6 +133,11 @@ extension DocumentFileWrapper
 	func setName(newName: String?) -> String?
 	{
 		return self.setStringForKey(newName, documentKey: .NameKey, encoding: NSUTF8StringEncoding)
+	}
+	
+	func setCaption(newCaption: String?) -> String?
+	{
+		return self.setStringForKey(newCaption, documentKey: .CaptionKey, encoding: NSUTF8StringEncoding)
 	}
 }
 
@@ -208,6 +214,7 @@ class ChromaDocument: UIDocument
 	var thumbnail: UIImage? = nil
 	var name: String? = nil
 	var background: UIImage? = nil
+	var caption: String? = nil
 	var fileWrapper: NSFileWrapper? = nil
 	
 	var count: Int { return self.layers.count }
@@ -224,6 +231,7 @@ class ChromaDocument: UIDocument
 		self.thumbnail = self.fileWrapper?.thumbnail()
 		self.name = self.fileWrapper?.name()
 		self.background = self.fileWrapper?.background()
+		self.caption = self.fileWrapper?.caption()
 		
 		self.layers.removeAll()
 		if let orderArray = self.fileWrapper?.order()
@@ -362,18 +370,19 @@ extension ChromaDocument
 		}
 	}
 	
-	func setCaption(caption: String?)
+	func setCaption(newCaption: String?)
 	{
-		var data: NSData? = nil
+		self.fileWrapper?.setCaption(newCaption)
+		self.caption = newCaption ?? ""
 		
-		if let captionString = caption
-		{
-			data = captionString.dataUsingEncoding(NSUTF32LittleEndianStringEncoding, allowLossyConversion: false)
+		self.saveToURL(self.fileURL, forSaveOperation: .ForOverwriting) {
+			success in
+			
+			if !success
+			{
+				println("Could not overwrite file!")
+			}
 		}
-		
-		self.setRegularFileWithData(data, preferredFilename: DocumentKey.CaptionKey.rawValue) { [unowned self]
-			string in
-			self.defaultErrorHandler(string) }
 	}
 	
 	func addNewLayer()
@@ -411,5 +420,15 @@ extension ChromaDocument
 	func setName(newName: String?)
 	{
 		self.fileWrapper?.setName(newName)
+		self.name = newName ?? "Untitled"
+		
+		self.saveToURL(self.fileURL, forSaveOperation: .ForOverwriting) {
+			success in
+			
+			if !success
+			{
+				println("Could not overwrite file!")
+			}
+		}
 	}
 }
