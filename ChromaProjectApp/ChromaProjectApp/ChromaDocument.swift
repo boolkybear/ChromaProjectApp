@@ -10,10 +10,11 @@ import UIKit
 
 private enum DocumentKey: String
 {
-	case CaptionKey = "caption"
 	case OrderKey = "order"
-	case BackgroundKey = "background"
 	case ThumbnailKey = "thumbnail"
+	case NameKey = "name"
+	case CaptionKey = "caption"
+	case BackgroundKey = "background"
 }
 
 private enum DocumentLayerKey: String
@@ -33,25 +34,23 @@ extension NSFileWrapper
 	{
 		return self.fileWrappers[key] as? NSFileWrapper
 	}
+	
+	func removeFileWrapperForKey(key: String) -> Bool
+	{
+		var childExists = false
+		
+		if let childWrapper = self.fileWrapperForKey(key)
+		{
+			self.removeFileWrapper(childWrapper)
+			childExists = true
+		}
+		
+		return childExists
+	}
 }
 
 extension DocumentFileWrapper
 {
-	func caption() -> String?
-	{
-		var caption: String? = nil
-		
-		if let captionData = self.fileWrapperForKey(DocumentKey.CaptionKey.rawValue)?.regularFileContents
-		{
-			if let captionString = NSString(data: captionData, encoding: NSUTF8StringEncoding)
-			{
-				caption = String(captionString)
-			}
-		}
-		
-		return caption
-	}
-	
 	func order() -> [String]?
 	{
 		var order: [String]? = nil
@@ -64,33 +63,75 @@ extension DocumentFileWrapper
 		return order
 	}
 	
-	func background() -> UIImage?
+	private func imageForKey(documentKey: DocumentKey) -> UIImage?
 	{
-		var background: UIImage? = nil
+		var image: UIImage? = nil
 		
-		if let backgroundData = self.fileWrapperForKey(DocumentKey.BackgroundKey.rawValue)?.regularFileContents
+		if let imageData = self.fileWrapperForKey(documentKey.rawValue)?.regularFileContents
 		{
-			background = UIImage(data: backgroundData)
+			image = UIImage(data: imageData)
 		}
 		
-		return background
+		return image
 	}
 	
 	func thumbnail() -> UIImage?
 	{
-		var thumbnail: UIImage? = nil
+		return self.imageForKey(.ThumbnailKey)
+	}
+	
+	func background() -> UIImage?
+	{
+		return self.imageForKey(.BackgroundKey)
+	}
+	
+	private func stringForKey(documentKey: DocumentKey, encoding: UInt) -> String?
+	{
+		var string: String? = nil
 		
-		if let thumbnailData = self.fileWrapperForKey(DocumentKey.ThumbnailKey.rawValue)?.regularFileContents
+		if let stringData = self.fileWrapperForKey(documentKey.rawValue)?.regularFileContents
 		{
-			thumbnail = UIImage(data: thumbnailData)
+			if let str = NSString(data: stringData, encoding: encoding)
+			{
+				string = String(str)
+			}
 		}
 		
-		return thumbnail
+		return string
+	}
+	
+	func name() -> String?
+	{
+		return self.stringForKey(.NameKey, encoding: NSUTF8StringEncoding)
+	}
+	
+	func caption() -> String?
+	{
+		return self.stringForKey(.CaptionKey, encoding: NSUTF8StringEncoding)
 	}
 	
 	func layerWrapper(identifier: String) -> DocumentLayerFileWrapper?
 	{
 		return self.fileWrapperForKey(identifier)
+	}
+	
+	private func setStringForKey(string: String?, documentKey: DocumentKey, encoding: UInt) -> String?
+	{
+		var dev: String? = nil
+		self.removeFileWrapperForKey(documentKey.rawValue)
+		
+		if let string = string
+		{
+			let stringWrapper = NSFileWrapper(regularFileWithContents: string.dataUsingEncoding(encoding, allowLossyConversion: false) ?? NSData())
+			dev = self.addFileWrapper(stringWrapper)
+		}
+		
+		return dev
+	}
+	
+	func setName(newName: String?) -> String?
+	{
+		return self.setStringForKey(newName, documentKey: .NameKey, encoding: NSUTF8StringEncoding)
 	}
 }
 
@@ -159,12 +200,14 @@ class ChromaDocumentLayer
 
 class ChromaDocument: UIDocument
 {
-	private var caption: String? = nil
+//	private let orderKey = "order"
+//	private let imageKey = "image"
+//	private let captionKey = "caption"
+	
 	private var layers: [ChromaDocumentLayer] = [ChromaDocumentLayer]()
-	private var background: UIImage? = nil
-	
-	private var thumbnail: UIImage? = nil
-	
+	var thumbnail: UIImage? = nil
+	var name: String? = nil
+	var background: UIImage? = nil
 	var fileWrapper: NSFileWrapper? = nil
 	
 	var count: Int { return self.layers.count }
@@ -175,30 +218,12 @@ class ChromaDocument: UIDocument
 		return layer
 	}
 	
-	override init()
-	{
-//		self.caption = nil
-//		self.layers = [ChromaDocumentLayer]()
-//		self.background = nil
-//		self.thumbnail = nil
-		
-		super.init()
-	}
-	
-	override init(fileURL url: NSURL)
-	{
-//		self.caption = nil
-//		self.layers = [ChromaDocumentLayer]()
-//		self.background = nil
-//		self.thumbnail = nil
-		
-		super.init(fileURL: url)
-	}
-	
 	override func loadFromContents(contents: AnyObject, ofType typeName: String, error outError: NSErrorPointer) -> Bool {
 		self.fileWrapper = contents as? DocumentFileWrapper
 		
-		self.caption = self.fileWrapper?.caption()
+		self.thumbnail = self.fileWrapper?.thumbnail()
+		self.name = self.fileWrapper?.name()
+		self.background = self.fileWrapper?.background()
 		
 		self.layers.removeAll()
 		if let orderArray = self.fileWrapper?.order()
@@ -211,16 +236,22 @@ class ChromaDocument: UIDocument
 				
 				if let layerWrapper = self.fileWrapper?.layerWrapper(layer.identifier)
 				{
-					layer.image = layerWrapper.image()
+					if let image = layerWrapper.image()
+					{
+						layer.image = image
+					}
+					
 					layer.transform = layerWrapper.transform()
-					layer.chroma = layerWrapper.chroma()
+					
+					if let chroma = layerWrapper.chroma()
+					{
+						layer.chroma = chroma
+					}
 				}
 				
 				self.layers.append(layer)
 			}
 		}
-		
-		self.background = self.fileWrapper?.background()
 		
 		return true
 	}
@@ -266,18 +297,34 @@ class ChromaDocument: UIDocument
 			self.fileWrapper?.addFileWrapper(newOrderWrapper)
 		}
 	}
+	
+	class func validExtensions() -> [String]
+	{
+		var extensions = [String]()
+		if let infoDict = NSBundle.mainBundle().infoDictionary
+		{
+			if let types = infoDict["CFBundleDocumentTypes"] as? [AnyObject]
+			{
+				for typeDict in types
+				{
+					if let contentTypes = typeDict["LSItemContentTypes"] as? [AnyObject]
+					{
+						for contentType in contentTypes
+						{
+							let pathExtension = contentType.pathExtension
+							if contains(extensions, pathExtension) == false
+							{
+								extensions.append(pathExtension)
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return extensions
+	}
 }
-
-//extension ChromaDocument
-//{
-//	func initializeProperties()
-//	{
-//		self.caption = nil
-//		self.layers = [ChromaDocumentLayer]()
-//		self.background = nil
-//		self.thumbnail = nil
-//	}
-//}
 
 // Setters
 extension ChromaDocument
@@ -359,5 +406,10 @@ extension ChromaDocument
 		self.setRegularFileWithData(data, preferredFilename: DocumentKey.ThumbnailKey.rawValue) { [unowned self]
 			string in
 			self.defaultErrorHandler(string) }
+	}
+	
+	func setName(newName: String?)
+	{
+		self.fileWrapper?.setName(newName)
 	}
 }

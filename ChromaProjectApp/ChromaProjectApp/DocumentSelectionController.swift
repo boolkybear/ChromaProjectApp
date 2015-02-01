@@ -40,7 +40,7 @@ class DocumentSelectionController: UICollectionViewController {
 		switch(saveSettings)
 		{
 		case .SaveLocally:
-			let documentsPath = self.localDocumentsPath()
+			let documentsPath = NSFileManager.localDocumentsPath()
 			
 			let uuid = NSUUID().UUIDString
 			
@@ -88,20 +88,15 @@ extension DocumentSelectionController: UICollectionViewDataSource, UICollectionV
 
 private extension DocumentSelectionController
 {
-	func localDocumentsPath() -> String
-	{
-		return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
-	}
-	
 	func localDocuments() -> [ChromaDocument]
 	{
 		var documents = [ChromaDocument]()
 		
 		var error: NSError? = nil
-		let localDocumentsPath = self.localDocumentsPath()
+		let localDocumentsPath = NSFileManager.localDocumentsPath()
 		let localDocuments = NSFileManager.defaultManager().contentsOfDirectoryAtPath(localDocumentsPath, error: &error);
 		
-		let validExtensions = self.validExtensions()
+		let validExtensions = ChromaDocument.validExtensions()
 		
 		for document in localDocuments!
 		{
@@ -126,32 +121,5 @@ private extension DocumentSelectionController
 		}
 		
 		return documents
-	}
-	
-	func validExtensions() -> [String]
-	{
-		var extensions = [String]()
-		if let infoDict = NSBundle.mainBundle().infoDictionary
-		{
-			if let types = infoDict["CFBundleDocumentTypes"] as? [AnyObject]
-			{
-				for typeDict in types
-				{
-					if let contentTypes = typeDict["LSItemContentTypes"] as? [AnyObject]
-					{
-						for contentType in contentTypes
-						{
-							let pathExtension = contentType.pathExtension
-							if contains(extensions, pathExtension) == false
-							{
-								extensions.append(pathExtension)
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		return extensions
 	}
 }

@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+extension NSFileManager
+{
+	class func localDocumentsPath() -> String
+	{
+		return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
+	}
+}
