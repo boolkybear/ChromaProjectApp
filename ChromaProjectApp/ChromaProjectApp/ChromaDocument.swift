@@ -10,7 +10,9 @@ import UIKit
 
 private enum DocumentKey: String
 {
+	case CaptionKey = "caption"
 	case OrderKey = "order"
+	case BackgroundKey = "background"
 	case ThumbnailKey = "thumbnail"
 }
 
@@ -35,6 +37,21 @@ extension NSFileWrapper
 
 extension DocumentFileWrapper
 {
+	func caption() -> String?
+	{
+		var caption: String? = nil
+		
+		if let captionData = self.fileWrapperForKey(DocumentKey.CaptionKey.rawValue)?.regularFileContents
+		{
+			if let captionString = NSString(data: captionData, encoding: NSUTF8StringEncoding)
+			{
+				caption = String(captionString)
+			}
+		}
+		
+		return caption
+	}
+	
 	func order() -> [String]?
 	{
 		var order: [String]? = nil
@@ -45,6 +62,18 @@ extension DocumentFileWrapper
 		}
 		
 		return order
+	}
+	
+	func background() -> UIImage?
+	{
+		var background: UIImage? = nil
+		
+		if let backgroundData = self.fileWrapperForKey(DocumentKey.BackgroundKey.rawValue)?.regularFileContents
+		{
+			background = UIImage(data: backgroundData)
+		}
+		
+		return background
 	}
 	
 	func thumbnail() -> UIImage?
@@ -100,7 +129,10 @@ extension DocumentLayerFileWrapper
 		
 		if let chromaData = self.fileWrapperForKey(DocumentLayerKey.ChromaKey.rawValue)?.regularFileContents
 		{
-			// TODO: decode color
+			if let chromaDict: [ String : CGFloat ] = NSKeyedUnarchiver.unarchiveObjectWithData(chromaData) as? [ String : CGFloat ]
+			{
+				chroma = UIColor(red: chromaDict["r"] ?? 0.0, green: chromaDict["g"] ?? 0.0, blue: chromaDict["b"] ?? 0.0, alpha: chromaDict["a"] ?? 1.0)
+			}
 		}
 		
 		return chroma
@@ -127,12 +159,12 @@ class ChromaDocumentLayer
 
 class ChromaDocument: UIDocument
 {
-	private let orderKey = "order"
-	private let imageKey = "image"
-	private let captionKey = "caption"
+	private var caption: String? = nil
+	private var layers: [ChromaDocumentLayer] = [ChromaDocumentLayer]()
+	private var background: UIImage? = nil
 	
-	private var layers: [ChromaDocumentLayer]
-	var thumbnail: UIImage?
+	private var thumbnail: UIImage? = nil
+	
 	var fileWrapper: NSFileWrapper? = nil
 	
 	var count: Int { return self.layers.count }
@@ -145,22 +177,28 @@ class ChromaDocument: UIDocument
 	
 	override init()
 	{
-		self.layers = [ChromaDocumentLayer]()
-		self.thumbnail = nil
+//		self.caption = nil
+//		self.layers = [ChromaDocumentLayer]()
+//		self.background = nil
+//		self.thumbnail = nil
 		
 		super.init()
 	}
 	
 	override init(fileURL url: NSURL)
 	{
-		self.layers = [ChromaDocumentLayer]()
-		self.thumbnail = nil
+//		self.caption = nil
+//		self.layers = [ChromaDocumentLayer]()
+//		self.background = nil
+//		self.thumbnail = nil
 		
 		super.init(fileURL: url)
 	}
 	
 	override func loadFromContents(contents: AnyObject, ofType typeName: String, error outError: NSErrorPointer) -> Bool {
 		self.fileWrapper = contents as? DocumentFileWrapper
+		
+		self.caption = self.fileWrapper?.caption()
 		
 		self.layers.removeAll()
 		if let orderArray = self.fileWrapper?.order()
@@ -173,22 +211,16 @@ class ChromaDocument: UIDocument
 				
 				if let layerWrapper = self.fileWrapper?.layerWrapper(layer.identifier)
 				{
-					if let image = layerWrapper.image()
-					{
-						layer.image = image
-					}
-					
+					layer.image = layerWrapper.image()
 					layer.transform = layerWrapper.transform()
-					
-					if let chroma = layerWrapper.chroma()
-					{
-						layer.chroma = chroma
-					}
+					layer.chroma = layerWrapper.chroma()
 				}
 				
 				self.layers.append(layer)
 			}
 		}
+		
+		self.background = self.fileWrapper?.background()
 		
 		return true
 	}
@@ -217,7 +249,7 @@ class ChromaDocument: UIDocument
 	
 	func recreateOrderWrapper()
 	{
-		let orderWrapper = self.fileWrapper?.fileWrapperForKey(self.orderKey)
+		let orderWrapper = self.fileWrapper?.fileWrapperForKey(DocumentKey.OrderKey.rawValue)
 		if let orderWrapper = orderWrapper
 		{
 			self.fileWrapper?.removeFileWrapper(orderWrapper)
@@ -227,13 +259,105 @@ class ChromaDocument: UIDocument
 		{
 			let identifierArray = self.layers.map() { layer in layer.identifier }
 			var error: NSError? = nil
-			let orderData = NSJSONSerialization.dataWithJSONObject(identifierArray, options: NSJSONWritingOptions.PrettyPrinted, error: &error)
-			if let orderData = orderData
+			let orderData = NSKeyedArchiver.archivedDataWithRootObject(identifierArray)
+			
+			let newOrderWrapper = NSFileWrapper(regularFileWithContents: orderData)
+			newOrderWrapper.preferredFilename = DocumentKey.OrderKey.rawValue
+			self.fileWrapper?.addFileWrapper(newOrderWrapper)
+		}
+	}
+}
+
+//extension ChromaDocument
+//{
+//	func initializeProperties()
+//	{
+//		self.caption = nil
+//		self.layers = [ChromaDocumentLayer]()
+//		self.background = nil
+//		self.thumbnail = nil
+//	}
+//}
+
+// Setters
+extension ChromaDocument
+{
+	typealias FileWrapperErrorHandler = (String?) -> Void
+	
+	func defaultErrorHandler(newKey: String?)
+	{
+		if let key = newKey
+		{
+			if let newWrapper = self.fileWrapper?.fileWrapperForKey(key)
 			{
-				let newOrderWrapper = NSFileWrapper(regularFileWithContents: orderData)
-				newOrderWrapper.preferredFilename = self.orderKey
-				self.fileWrapper?.addFileWrapper(newOrderWrapper)
+				self.fileWrapper?.removeFileWrapper(newWrapper)
 			}
 		}
+	}
+	
+	func setRegularFileWithData(data: NSData?, preferredFilename: String, errorHandler: FileWrapperErrorHandler?)
+	{
+		if let dataWrapper = self.fileWrapper?.fileWrapperForKey(preferredFilename)
+		{
+			self.fileWrapper?.removeFileWrapper(dataWrapper)
+		}
+		
+		if let data = data
+		{
+			let dataKey = self.fileWrapper?.addRegularFileWithContents(data, preferredFilename: DocumentKey.CaptionKey.rawValue)
+			if dataKey == nil || dataKey! != preferredFilename
+			{
+				if let handler = errorHandler
+				{
+					handler(dataKey)
+				}
+			}
+		}
+	}
+	
+	func setCaption(caption: String?)
+	{
+		var data: NSData? = nil
+		
+		if let captionString = caption
+		{
+			data = captionString.dataUsingEncoding(NSUTF32LittleEndianStringEncoding, allowLossyConversion: false)
+		}
+		
+		self.setRegularFileWithData(data, preferredFilename: DocumentKey.CaptionKey.rawValue) { [unowned self]
+			string in
+			self.defaultErrorHandler(string) }
+	}
+	
+	func addNewLayer()
+	{
+	}
+	
+	func setBackground(background: UIImage?)
+	{
+		var data: NSData? = nil
+		
+		if let backgroundImage = background
+		{
+			data = UIImageJPEGRepresentation(backgroundImage, 1.0)
+		}
+		
+		self.setRegularFileWithData(data, preferredFilename: DocumentKey.BackgroundKey.rawValue) { [unowned self]
+			string in
+			self.defaultErrorHandler(string) }
+	}
+	
+	func setThumbnail(thumbnail: UIImage?)
+	{
+		var data: NSData? = nil
+		
+		if let thumbnailImage = thumbnail
+		{
+			data = UIImageJPEGRepresentation(thumbnailImage, 1.0)
+		}
+		
+		self.setRegularFileWithData(data, preferredFilename: DocumentKey.ThumbnailKey.rawValue) { [unowned self]
+			string in
+			self.defaultErrorHandler(string) }
 	}
 }
